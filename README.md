@@ -5,8 +5,8 @@
   <p>Find any photo with a sentence. Cluster faces. Dedupe duplicates. <b>All on your machine.</b></p>
 
   <p>
-    <a href="https://github.com/amys94fr/mirafold/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
-    <a href="https://github.com/amys94fr/mirafold/stargazers"><img src="https://img.shields.io/github/stars/amys94fr/mirafold?style=social" alt="GitHub stars" /></a>
+    <a href="https://github.com/amys94fr/Mirafold/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
+    <a href="https://github.com/amys94fr/Mirafold/stargazers"><img src="https://img.shields.io/github/stars/amys94fr/Mirafold?style=social" alt="GitHub stars" /></a>
     <img src="https://img.shields.io/badge/Tauri-2.11-24C8DB?logo=tauri" alt="Tauri 2" />
     <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react" alt="React 19" />
     <img src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white" alt="Python 3.10+" />
@@ -78,7 +78,7 @@ Library with grouping by year/country/camera, faces auto-clustered into people, 
 ### Install
 
 ```bash
-git clone https://github.com/amys94fr/mirafold.git
+git clone https://github.com/amys94fr/Mirafold.git
 cd mirafold
 pnpm install
 pip install --user -r apps/ml-service/requirements.txt

@@ -41,7 +41,7 @@ Features that probably won't be merged:
 ## Development setup
 
 ```bash
-git clone https://github.com/amys94fr/mirafold.git
+git clone https://github.com/amys94fr/Mirafold.git
 cd mirafold
 pnpm install
 pip install --user -r apps/ml-service/requirements.txt
