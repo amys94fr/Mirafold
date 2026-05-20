@@ -1,0 +1,161 @@
+{
+  "app": {
+    "name": "Mirafold",
+    "tagline": "photo intelligence"
+  },
+  "nav": {
+    "library": "Bibliothèque",
+    "duplicates": "Doublons",
+    "faces": "Visages",
+    "search": "Recherche",
+    "settings": "Réglages",
+    "main": "Navigation principale"
+  },
+  "scan": {
+    "disconnected": "Service ML déconnecté",
+    "connecting": "Connexion...",
+    "indexedCount_one": "{{count}} photo indexée",
+    "indexedCount_other": "{{count}} photos indexées",
+    "noPhotos": "Aucune photo indexée",
+    "status": {
+      "scanning": "Analyse du système de fichiers",
+      "hashing": "Calcul des empreintes",
+      "embedding": "Indexation sémantique",
+      "faces": "Détection des visages",
+      "error": "Erreur"
+    }
+  },
+  "common": {
+    "addFolder": "Ajouter un dossier",
+    "cancel": "Annuler",
+    "apply": "Appliquer",
+    "remove": "Retirer",
+    "rename": "Renommer",
+    "open": "Ouvrir",
+    "folder": "Dossier",
+    "close": "Fermer",
+    "loading": "Chargement...",
+    "all": "Tous",
+    "filter": "Filtrer",
+    "filterBy": "Filtrer par {{dimension}}",
+    "clearFilter": "Retirer le filtre",
+    "selectedCount_one": "{{count}} sélectionnée",
+    "selectedCount_other": "{{count}} sélectionnées",
+    "endOfLibrary": "Fin de la bibliothèque · {{count}} photos",
+    "scrollForMore": "Faites défiler pour charger plus",
+    "noPersonSelected": "Sélectionne une personne pour voir ses photos.",
+    "loadingLibrary": "Chargement de la bibliothèque...",
+    "searching": "Analyse sémantique en cours..."
+  },
+  "library": {
+    "title": "Bibliothèque",
+    "countLoaded_one": "{{loaded}} sur {{total}} photo chargée",
+    "countLoaded_other": "{{loaded}} sur {{total}} photos chargées",
+    "countLoadedFiltered_one": "{{loaded}} sur {{total}} photo (filtrée)",
+    "countLoadedFiltered_other": "{{loaded}} sur {{total}} photos (filtrées)",
+    "empty": {
+      "title": "Bibliothèque vide",
+      "description": "Ajoute un dossier à scanner pour commencer à indexer tes photos. Mirafold indexe en local, rien n'est envoyé sur internet."
+    },
+    "group": {
+      "label": "Grouper par",
+      "none": "Aucun",
+      "folder": "Dossier",
+      "year": "Année",
+      "month": "Mois",
+      "city": "Ville",
+      "country": "Pays",
+      "camera_make": "Marque",
+      "camera_model": "Modèle"
+    },
+    "placeholders": {
+      "noDate": "Sans date",
+      "noGps": "Sans GPS",
+      "noCamera": "Sans appareil"
+    }
+  },
+  "duplicates": {
+    "title": "Doublons et photos similaires",
+    "groupCount_one": "{{count}} groupe détecté",
+    "groupCount_other": "{{count}} groupes détectés",
+    "searching": "Recherche des doublons...",
+    "empty": {
+      "title": "Aucun doublon trouvé",
+      "description": "Mirafold n'a détecté aucun doublon au-dessus du seuil de similarité actuel. Baisse le seuil pour élargir la recherche."
+    },
+    "threshold": "Seuil :",
+    "groupHeader_one": "{{count}} photo",
+    "groupHeader_other": "{{count}} photos",
+    "similarity": "similarité {{percent}}%",
+    "keepBest": "Garder la meilleure, sélectionner les autres",
+    "ref": "Réf"
+  },
+  "faces": {
+    "title": "Visages",
+    "personLabel": "Personne {{id}}",
+    "people": "Personnes",
+    "peopleCount": "Personnes ({{count}})",
+    "photoCount_one": "{{count}} photo",
+    "photoCount_other": "{{count}} photos",
+    "loading": "Chargement des visages...",
+    "empty": {
+      "title": "Aucun visage détecté",
+      "description": "Mirafold n'a pas encore détecté de visages. L'indexation faciale s'exécute après le scan initial."
+    }
+  },
+  "search": {
+    "title": "Recherche sémantique",
+    "placeholder": "Décris ce que tu cherches, ex : \"chien dans la neige\"",
+    "submit": "Rechercher",
+    "running": "Recherche...",
+    "tryExamples": "Essaie :",
+    "examples": [
+      "chien dans la neige",
+      "coucher de soleil sur la mer",
+      "anniversaire avec gâteau",
+      "rues de Paris la nuit",
+      "selfie en montagne"
+    ],
+    "noResults": "Aucun résultat. Essaie une formulation différente.",
+    "resultsCount_one": "{{count}} résultat pour \"{{query}}\"",
+    "resultsCount_other": "{{count}} résultats pour \"{{query}}\""
+  },
+  "settings": {
+    "title": "Réglages",
+    "language": {
+      "title": "Langue",
+      "description": "Choisis la langue de l'interface. Le changement est instantané."
+    },
+    "roots": {
+      "title": "Dossiers indexés",
+      "description": "Mirafold scanne récursivement ces dossiers. Toute l'indexation reste sur ton PC.",
+      "empty": "Aucun dossier ajouté.",
+      "removeAria": "Retirer {{path}}"
+    },
+    "indexing": {
+      "title": "Indexation",
+      "description": "Toute photo nouvelle ou modifiée déclenche automatiquement empreinte, embedding sémantique et détection des visages. Utilise ces boutons pour relancer manuellement.",
+      "indexMissing": "Indexer ce qui manque",
+      "rescanAll": "Rescan complet",
+      "indexMissingHint": "Ne re-traite que les photos sans embedding ou sans visages détectés. Recommandé après l'ajout d'un nouveau modèle.",
+      "rescanAllHint": "Reconstruit tout depuis zéro, plus lent."
+    }
+  },
+  "viewer": {
+    "openExternal": "Ouvrir avec l'application par défaut",
+    "revealInFolder": "Voir dans l'explorateur Windows",
+    "shortcuts": "Esc · ← → · clic en dehors pour fermer",
+    "prevAria": "Photo précédente",
+    "nextAria": "Photo suivante"
+  },
+  "bulk": {
+    "regionLabel": "Actions groupées",
+    "rename": "Renommer",
+    "trash": "Corbeille",
+    "confirmTrash_one": "Envoyer {{count}} photo à la corbeille ?",
+    "confirmTrash_other": "Envoyer {{count}} photos à la corbeille ?",
+    "renamePlaceholder": "Ex : vacances-{date}-{n}",
+    "renameAria": "Modèle de renommage",
+    "clearSelection": "Désélectionner tout"
+  }
+}

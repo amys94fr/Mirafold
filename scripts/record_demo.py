@@ -53,6 +53,12 @@ def main() -> None:
         action="store_true",
         help="Floute les vignettes des photos (pour README public).",
     )
+    parser.add_argument(
+        "--locale",
+        default="en",
+        choices=["en", "fr"],
+        help="Force la langue de l'UI (défaut: en).",
+    )
     args = parser.parse_args()
 
     frames: list[Path] = []
@@ -67,6 +73,10 @@ def main() -> None:
             device_scale_factor=1.0,
         )
         page = ctx.new_page()
+        # Force la langue avant le boot de React
+        page.add_init_script(
+            f"try {{ localStorage.setItem('mirafold:locale', '{args.locale}'); }} catch (e) {{}}"
+        )
         page.goto("http://localhost:5173/library", wait_until="domcontentloaded")
         page.wait_for_selector("img", timeout=10000)
         if args.blur:
@@ -78,62 +88,69 @@ def main() -> None:
             print(f"  blur applied: {applied!r}")
         time.sleep(2.0)  # initial photo load
 
+        # Sélecteurs i18n-agnostiques : on cible le radiogroup library.group par position
+        group_radios = 'div[role="radiogroup"] > button[role="radio"]'
+
         # 1. Library default
         frames.append(shot(page, "01-library"))
 
-        # 2. Group by year
-        page.locator('button[role="radio"]:has-text("Année")').click()
+        # 2. Group by year (index 2: none=0, folder=1, year=2)
+        page.locator(group_radios).nth(2).click()
         frames.append(shot(page, "02-library-year"))
 
         # 3. Scroll into second section
         page.evaluate("window.scrollTo({top: 600, behavior: 'instant'})")
         frames.append(shot(page, "03-library-year-scroll"))
 
-        # 4. Filter dropdown
-        page.locator('button[role="radio"]:has-text("Pays")').click()
+        # 4. Country (index 5)
+        page.locator(group_radios).nth(5).click()
         time.sleep(0.8)
         frames.append(shot(page, "04-library-country"))
 
-        page.locator('button[role="radio"]:has-text("Marque")').click()
+        # 5. Camera brand (index 6)
+        page.locator(group_radios).nth(6).click()
         time.sleep(0.8)
         frames.append(shot(page, "05-library-camera-make"))
 
-        # 6. Doublons
+        # 6. Duplicates
         page.locator('a[href="/duplicates"]').click()
-        page.wait_for_selector("img, [aria-label*='Aucun']", timeout=15000)
+        page.wait_for_selector("img, section", timeout=15000)
         time.sleep(2.0)
         frames.append(shot(page, "06-duplicates"))
 
-        # 7. Visages
+        # 7. Faces
         page.locator('a[href="/faces"]').click()
-        page.wait_for_selector("button:has-text('Personne'), [aria-label='Liste des personnes']", timeout=15000)
+        page.wait_for_selector("aside button img, aside button svg", timeout=15000)
         time.sleep(2.0)
         frames.append(shot(page, "07-faces"))
 
-        # Click second cluster (the biggest is usually noise)
-        clusters = page.locator('aside[aria-label="Liste des personnes"] button').all()
+        # Click second cluster
+        clusters = page.locator("aside button").all()
         if len(clusters) > 1:
             clusters[1].click()
             page.wait_for_load_state("networkidle", timeout=8000)
             time.sleep(2.0)
             frames.append(shot(page, "08-faces-cluster"))
 
-        # 9. Recherche
+        # 9. Search
         page.locator('a[href="/search"]').click()
         page.wait_for_selector('input[type="text"]', timeout=8000)
         time.sleep(1.0)
         frames.append(shot(page, "09-search-empty"))
 
-        # 10. Type query and submit
+        # 10. Type query
         search = page.locator('input[type="text"]')
         search.click()
-        search.type("famille avec gâteau", delay=60)
+        search_query = (
+            "family with cake" if args.locale == "en" else "famille avec gâteau"
+        )
+        search.type(search_query, delay=60)
         frames.append(shot(page, "10-search-typed", delay=0.3))
         page.keyboard.press("Enter")
-        # Attendre que le state passe de "Analyse sémantique en cours" aux résultats
+        # Attendre que des résultats apparaissent (présence du badge %)
         try:
-            page.wait_for_function(
-                "() => !document.body.innerText.includes('Analyse sémantique en cours')",
+            page.wait_for_selector(
+                'span:text-matches("\\d+%")',
                 timeout=60000,
             )
         except Exception:

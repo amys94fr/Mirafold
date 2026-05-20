@@ -32,6 +32,7 @@ Mirafold runs the same kind of AI photo intelligence — CLIP for natural-langua
 - 📍 **Place & date grouping** — EXIF GPS extracted and reverse-geocoded to city/country **offline**. Auto-group by folder, year, month, city, country, camera brand, or camera model. Each dimension is also a filter.
 - 🖼️ **Lightbox & bulk ops** — Click to open full-size with prev/next nav, Ctrl+A to select all visible, send to Recycle Bin or rename in bulk with templates (`{n}`, `{date}`, `{orig}`).
 - 🚀 **Incremental scans** — `mtime` + size cache. Re-scanning a folder of 10,000 photos with no changes takes seconds.
+- 🌍 **Multilingual UI** — English and French ship out of the box, auto-detected from your system locale. Add a new language by dropping a JSON file in `apps/desktop/src/i18n/locales/` and listing it in `src/i18n/index.ts`.
 - 🔒 **100% local** — No cloud accounts. No telemetry. No internet required after model download (~600 MB OpenCLIP, ~37 MB face models, one time).
 
 ## 🎬 Demo

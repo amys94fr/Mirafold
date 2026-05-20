@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Copy } from "lucide-react";
 import { api, type Photo } from "@/lib/api";
 import { PhotoCard } from "@/components/PhotoCard";
@@ -11,6 +12,8 @@ import { useSelectAllShortcut } from "@/stores/useSelectAllShortcut";
 import { formatBytes } from "@/lib/utils";
 
 export function DuplicatesView() {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language;
   const [similarity, setSimilarity] = useState(0.95);
   const addSelection = useSelection((s) => s.add);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
@@ -30,7 +33,7 @@ export function DuplicatesView() {
   if (isLoading) {
     return (
       <div className="p-6 text-sm text-muted-foreground">
-        Recherche des doublons...
+        {t("duplicates.searching")}
       </div>
     );
   }
@@ -39,8 +42,8 @@ export function DuplicatesView() {
     return (
       <EmptyState
         icon={Copy}
-        title="Aucun doublon trouvé"
-        description="Mirafold n'a détecté aucun doublon au-dessus du seuil de similarité actuel. Baisse le seuil pour élargir la recherche."
+        title={t("duplicates.empty.title")}
+        description={t("duplicates.empty.description")}
       />
     );
   }
@@ -49,14 +52,16 @@ export function DuplicatesView() {
     <div className="p-4">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold">Doublons et photos similaires</h1>
+          <h1 className="text-xl font-semibold">{t("duplicates.title")}</h1>
           <p className="text-xs text-muted-foreground">
-            {data.groups.length} groupe{data.groups.length > 1 ? "s" : ""} détecté
-            {data.groups.length > 1 ? "s" : ""}
+            {t("duplicates.groupCount", {
+              count: data.groups.length,
+              formatParams: { count: { locale } },
+            })}
           </p>
         </div>
         <label className="flex items-center gap-2 text-sm">
-          <span className="text-muted-foreground">Seuil :</span>
+          <span className="text-muted-foreground">{t("duplicates.threshold")}</span>
           <input
             type="range"
             min={0.8}
@@ -89,14 +94,25 @@ export function DuplicatesView() {
             <section
               key={group.group_id}
               className="surface p-3"
-              aria-label={`Groupe de ${group.photos.length} photos similaires`}
+              aria-label={t("duplicates.groupHeader", {
+                count: group.photos.length,
+              })}
             >
               <header className="mb-2 flex items-center justify-between">
                 <div className="text-sm">
-                  <span className="font-medium">{group.photos.length} photos</span>
+                  <span className="font-medium">
+                    {t("duplicates.groupHeader", {
+                      count: group.photos.length,
+                      formatParams: { count: { locale } },
+                    })}
+                  </span>
                   <span className="text-muted-foreground">
-                    {" "}
-                    · similarité {Math.round(group.similarity * 100)}% · {formatBytes(total)}
+                    {" · "}
+                    {t("duplicates.similarity", {
+                      percent: Math.round(group.similarity * 100),
+                    })}
+                    {" · "}
+                    {formatBytes(total)}
                   </span>
                 </div>
                 <button
@@ -104,7 +120,7 @@ export function DuplicatesView() {
                   onClick={keepLargest}
                   className="rounded-md bg-muted px-2.5 py-1 text-xs hover:bg-muted/70"
                 >
-                  Garder la meilleure, sélectionner les autres
+                  {t("duplicates.keepBest")}
                 </button>
               </header>
               <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-2">
@@ -112,7 +128,7 @@ export function DuplicatesView() {
                   <PhotoCard
                     key={p.id}
                     photo={p}
-                    badge={idx === 0 ? "Réf" : undefined}
+                    badge={idx === 0 ? t("duplicates.ref") : undefined}
                     onOpen={() => {
                       const flatIdx = flat.findIndex((x) => x.id === p.id);
                       if (flatIdx >= 0) setViewerIndex(flatIdx);

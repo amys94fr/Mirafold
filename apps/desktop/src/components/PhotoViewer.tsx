@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { X, ChevronLeft, ChevronRight, ExternalLink, FolderOpen, Info } from "lucide-react";
 import { api, type Photo } from "@/lib/api";
 import { formatBytes } from "@/lib/utils";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function PhotoViewer({ photos, index, onClose, onIndexChange }: Props) {
+  const { t } = useTranslation();
   const photo = photos[index];
   const total = photos.length;
 
@@ -62,25 +64,25 @@ export function PhotoViewer({ photos, index, onClose, onIndexChange }: Props) {
             type="button"
             onClick={() => openPath(photo.path)}
             className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs hover:bg-white/10"
-            title="Ouvrir avec l'application par défaut"
+            title={t("viewer.openExternal")}
           >
             <ExternalLink className="size-3.5" aria-hidden />
-            Ouvrir
+            {t("common.open")}
           </button>
           <button
             type="button"
             onClick={() => revealItemInDir(photo.path)}
             className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs hover:bg-white/10"
-            title="Voir dans l'explorateur Windows"
+            title={t("viewer.revealInFolder")}
           >
             <FolderOpen className="size-3.5" aria-hidden />
-            Dossier
+            {t("common.folder")}
           </button>
           <button
             type="button"
             onClick={onClose}
             className="rounded-md p-1.5 hover:bg-white/10"
-            aria-label="Fermer"
+            aria-label={t("common.close")}
           >
             <X className="size-5" aria-hidden />
           </button>
@@ -102,7 +104,7 @@ export function PhotoViewer({ photos, index, onClose, onIndexChange }: Props) {
               type="button"
               onClick={prev}
               className="absolute left-2 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white/90 backdrop-blur transition hover:bg-black/70"
-              aria-label="Photo précédente"
+              aria-label={t("viewer.prevAria")}
             >
               <ChevronLeft className="size-6" aria-hidden />
             </button>
@@ -110,7 +112,7 @@ export function PhotoViewer({ photos, index, onClose, onIndexChange }: Props) {
               type="button"
               onClick={next}
               className="absolute right-2 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white/90 backdrop-blur transition hover:bg-black/70"
-              aria-label="Photo suivante"
+              aria-label={t("viewer.nextAria")}
             >
               <ChevronRight className="size-6" aria-hidden />
             </button>
@@ -122,7 +124,7 @@ export function PhotoViewer({ photos, index, onClose, onIndexChange }: Props) {
         <Info className="size-3.5" aria-hidden />
         <code className="truncate font-mono">{photo.path}</code>
         <span className="ml-auto whitespace-nowrap">
-          Esc · ← → · clic en dehors pour fermer
+          {t("viewer.shortcuts")}
         </span>
       </footer>
     </div>

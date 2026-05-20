@@ -1,0 +1,161 @@
+{
+  "app": {
+    "name": "Mirafold",
+    "tagline": "photo intelligence"
+  },
+  "nav": {
+    "library": "Library",
+    "duplicates": "Duplicates",
+    "faces": "Faces",
+    "search": "Search",
+    "settings": "Settings",
+    "main": "Main navigation"
+  },
+  "scan": {
+    "disconnected": "ML service offline",
+    "connecting": "Connecting...",
+    "indexedCount_one": "{{count}} photo indexed",
+    "indexedCount_other": "{{count}} photos indexed",
+    "noPhotos": "No photos indexed yet",
+    "status": {
+      "scanning": "Scanning filesystem",
+      "hashing": "Computing fingerprints",
+      "embedding": "Building semantic index",
+      "faces": "Detecting faces",
+      "error": "Error"
+    }
+  },
+  "common": {
+    "addFolder": "Add a folder",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "remove": "Remove",
+    "rename": "Rename",
+    "open": "Open",
+    "folder": "Folder",
+    "close": "Close",
+    "loading": "Loading...",
+    "all": "All",
+    "filter": "Filter",
+    "filterBy": "Filter by {{dimension}}",
+    "clearFilter": "Clear filter",
+    "selectedCount_one": "{{count}} selected",
+    "selectedCount_other": "{{count}} selected",
+    "endOfLibrary": "End of library · {{count}} photos",
+    "scrollForMore": "Scroll for more",
+    "noPersonSelected": "Pick a person to see their photos.",
+    "loadingLibrary": "Loading library...",
+    "searching": "Running semantic analysis..."
+  },
+  "library": {
+    "title": "Library",
+    "countLoaded_one": "{{loaded}} of {{total}} photo loaded",
+    "countLoaded_other": "{{loaded}} of {{total}} photos loaded",
+    "countLoadedFiltered_one": "{{loaded}} of {{total}} photo (filtered)",
+    "countLoadedFiltered_other": "{{loaded}} of {{total}} photos (filtered)",
+    "empty": {
+      "title": "Empty library",
+      "description": "Add a folder to start indexing your photos. Mirafold indexes locally, nothing leaves your machine."
+    },
+    "group": {
+      "label": "Group by",
+      "none": "None",
+      "folder": "Folder",
+      "year": "Year",
+      "month": "Month",
+      "city": "City",
+      "country": "Country",
+      "camera_make": "Brand",
+      "camera_model": "Model"
+    },
+    "placeholders": {
+      "noDate": "No date",
+      "noGps": "No GPS",
+      "noCamera": "No camera"
+    }
+  },
+  "duplicates": {
+    "title": "Duplicates & similar photos",
+    "groupCount_one": "{{count}} group detected",
+    "groupCount_other": "{{count}} groups detected",
+    "searching": "Searching for duplicates...",
+    "empty": {
+      "title": "No duplicates found",
+      "description": "No duplicates above the current similarity threshold. Lower the threshold to broaden the search."
+    },
+    "threshold": "Threshold:",
+    "groupHeader_one": "{{count}} photo",
+    "groupHeader_other": "{{count}} photos",
+    "similarity": "{{percent}}% similarity",
+    "keepBest": "Keep the best, select the rest",
+    "ref": "Ref"
+  },
+  "faces": {
+    "title": "Faces",
+    "personLabel": "Person {{id}}",
+    "people": "People",
+    "peopleCount": "People ({{count}})",
+    "photoCount_one": "{{count}} photo",
+    "photoCount_other": "{{count}} photos",
+    "loading": "Loading faces...",
+    "empty": {
+      "title": "No faces detected",
+      "description": "Mirafold has not detected any faces yet. Face indexing runs after the initial scan."
+    }
+  },
+  "search": {
+    "title": "Semantic search",
+    "placeholder": "Describe what you're looking for, e.g. \"dog in the snow\"",
+    "submit": "Search",
+    "running": "Searching...",
+    "tryExamples": "Try:",
+    "examples": [
+      "dog in the snow",
+      "sunset over the ocean",
+      "birthday with cake",
+      "streets of Paris at night",
+      "selfie in the mountains"
+    ],
+    "noResults": "No results. Try a different phrasing.",
+    "resultsCount_one": "{{count}} result for \"{{query}}\"",
+    "resultsCount_other": "{{count}} results for \"{{query}}\""
+  },
+  "settings": {
+    "title": "Settings",
+    "language": {
+      "title": "Language",
+      "description": "Pick the interface language. The change is instant."
+    },
+    "roots": {
+      "title": "Indexed folders",
+      "description": "Mirafold scans these folders recursively. All indexing stays on your PC.",
+      "empty": "No folders added yet.",
+      "removeAria": "Remove {{path}}"
+    },
+    "indexing": {
+      "title": "Indexing",
+      "description": "Any new or modified photo triggers fingerprint, semantic embedding, and face detection automatically. Use these buttons to re-run manually.",
+      "indexMissing": "Index what's missing",
+      "rescanAll": "Full re-scan",
+      "indexMissingHint": "Only re-processes photos missing an embedding or face detection. Recommended after installing a new model.",
+      "rescanAllHint": "Rebuilds everything from scratch, slower."
+    }
+  },
+  "viewer": {
+    "openExternal": "Open with default app",
+    "revealInFolder": "Reveal in Windows Explorer",
+    "shortcuts": "Esc · ← → · click outside to close",
+    "prevAria": "Previous photo",
+    "nextAria": "Next photo"
+  },
+  "bulk": {
+    "regionLabel": "Bulk actions",
+    "rename": "Rename",
+    "trash": "Trash",
+    "confirmTrash_one": "Send {{count}} photo to the Recycle Bin?",
+    "confirmTrash_other": "Send {{count}} photos to the Recycle Bin?",
+    "renamePlaceholder": "e.g. vacation-{date}-{n}",
+    "renameAria": "Rename template",
+    "clearSelection": "Clear selection"
+  }
+}

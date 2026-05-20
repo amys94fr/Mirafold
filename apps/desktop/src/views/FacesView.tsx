@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { UsersRound, Pencil } from "lucide-react";
 import { api } from "@/lib/api";
 import { PhotoCard } from "@/components/PhotoCard";
@@ -9,6 +10,8 @@ import { PhotoViewer } from "@/components/PhotoViewer";
 import { useSelectAllShortcut } from "@/stores/useSelectAllShortcut";
 
 export function FacesView() {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language;
   const [activeCluster, setActiveCluster] = useState<number | null>(null);
   const [editing, setEditing] = useState<number | null>(null);
   const [labelDraft, setLabelDraft] = useState("");
@@ -47,7 +50,7 @@ export function FacesView() {
   if (isLoading) {
     return (
       <div className="p-6 text-sm text-muted-foreground">
-        Chargement des visages...
+        {t("faces.loading")}
       </div>
     );
   }
@@ -56,8 +59,8 @@ export function FacesView() {
     return (
       <EmptyState
         icon={UsersRound}
-        title="Aucun visage détecté"
-        description="Mirafold n'a pas encore détecté de visages. L'indexation faciale s'exécute après le scan initial."
+        title={t("faces.empty.title")}
+        description={t("faces.empty.description")}
       />
     );
   }
@@ -66,10 +69,10 @@ export function FacesView() {
     <div className="grid h-full grid-cols-[260px_1fr]">
       <aside
         className="overflow-auto border-r border-border bg-card/50 p-2"
-        aria-label="Liste des personnes"
+        aria-label={t("faces.people")}
       >
         <h2 className="px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Personnes ({clustersData.clusters.length})
+          {t("faces.peopleCount", { count: clustersData.clusters.length })}
         </h2>
         <ul className="mt-1 space-y-1">
           {clustersData.clusters.map((c) => {
@@ -117,11 +120,14 @@ export function FacesView() {
                         />
                       ) : (
                         <div className="truncate text-sm">
-                          {c.label ?? `Personne ${c.cluster_id}`}
+                          {c.label ?? t("faces.personLabel", { id: c.cluster_id })}
                         </div>
                       )}
                       <div className="text-xs text-muted-foreground">
-                        {c.face_count} photo{c.face_count > 1 ? "s" : ""}
+                        {t("faces.photoCount", {
+                          count: c.face_count,
+                          formatParams: { count: { locale } },
+                        })}
                       </div>
                     </div>
                   </button>
@@ -133,7 +139,7 @@ export function FacesView() {
                         setLabelDraft(c.label ?? "");
                       }}
                       className="opacity-0 transition-opacity group-hover:opacity-100 hover:opacity-100"
-                      aria-label="Renommer"
+                      aria-label={t("common.rename")}
                     >
                       <Pencil className="size-3.5 text-muted-foreground" aria-hidden />
                     </button>
@@ -145,10 +151,10 @@ export function FacesView() {
         </ul>
       </aside>
 
-      <section className="overflow-auto p-4" aria-label="Photos de la personne">
+      <section className="overflow-auto p-4" aria-label={t("faces.title")}>
         {activeCluster === null ? (
           <div className="p-6 text-sm text-muted-foreground">
-            Sélectionne une personne pour voir ses photos.
+            {t("common.noPersonSelected")}
           </div>
         ) : photosData ? (
           <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-2">
@@ -161,7 +167,7 @@ export function FacesView() {
             ))}
           </div>
         ) : (
-          <div className="p-6 text-sm text-muted-foreground">Chargement...</div>
+          <div className="p-6 text-sm text-muted-foreground">{t("common.loading")}</div>
         )}
         <BulkActionsBar />
         {viewerIndex !== null && photosData ? (

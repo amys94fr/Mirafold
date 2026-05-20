@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Trash2, FilePenLine, X } from "lucide-react";
 import { useSelection } from "@/stores/selection";
 import { api } from "@/lib/api";
 
 export function BulkActionsBar() {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language;
   const count = useSelection((s) => s.selected.size);
   const clear = useSelection((s) => s.clear);
   const toArray = useSelection((s) => s.toArray);
@@ -34,11 +37,14 @@ export function BulkActionsBar() {
   return (
     <div
       role="region"
-      aria-label="Actions groupées"
+      aria-label={t("bulk.regionLabel")}
       className="surface fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 px-3 py-2 shadow-xl"
     >
       <span className="px-2 text-sm font-medium">
-        {count.toLocaleString("fr-FR")} sélectionnée{count > 1 ? "s" : ""}
+        {t("common.selectedCount", {
+          count,
+          formatParams: { count: { locale } },
+        })}
       </span>
       <div className="mx-1 h-5 w-px bg-border" aria-hidden />
       <button
@@ -47,12 +53,12 @@ export function BulkActionsBar() {
         className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm hover:bg-muted"
       >
         <FilePenLine className="size-4" aria-hidden />
-        Renommer
+        {t("bulk.rename")}
       </button>
       <button
         type="button"
         onClick={() => {
-          if (confirm(`Envoyer ${count} photo(s) à la corbeille ?`)) {
+          if (confirm(t("bulk.confirmTrash", { count }))) {
             deleteMut.mutate();
           }
         }}
@@ -60,13 +66,13 @@ export function BulkActionsBar() {
         className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-destructive hover:bg-destructive/10"
       >
         <Trash2 className="size-4" aria-hidden />
-        Corbeille
+        {t("bulk.trash")}
       </button>
       <button
         type="button"
         onClick={clear}
         className="inline-flex items-center rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted"
-        aria-label="Désélectionner tout"
+        aria-label={t("bulk.clearSelection")}
       >
         <X className="size-4" aria-hidden />
       </button>
@@ -77,9 +83,9 @@ export function BulkActionsBar() {
             type="text"
             value={template}
             onChange={(e) => setTemplate(e.target.value)}
-            placeholder="Ex: vacances-{date}-{n}"
+            placeholder={t("bulk.renamePlaceholder")}
             className="flex-1 rounded-md bg-input px-2 py-1.5 text-sm outline-none"
-            aria-label="Modèle de renommage"
+            aria-label={t("bulk.renameAria")}
           />
           <button
             type="button"
@@ -87,7 +93,7 @@ export function BulkActionsBar() {
             disabled={renameMut.isPending || !template.trim()}
             className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground disabled:opacity-50"
           >
-            Appliquer
+            {t("common.apply")}
           </button>
         </div>
       ) : null}

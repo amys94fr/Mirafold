@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Activity, CheckCircle2, AlertCircle } from "lucide-react";
 import { api } from "@/lib/api";
 
 export function ScanIndicator() {
   const qc = useQueryClient();
+  const { t, i18n } = useTranslation();
   const lastStatus = useRef<string | null>(null);
 
   const { data, isError } = useQuery({
@@ -30,7 +32,7 @@ export function ScanIndicator() {
     return (
       <div className="flex items-center gap-2 text-xs text-destructive">
         <AlertCircle className="size-4" aria-hidden />
-        Service ML déconnecté
+        {t("scan.disconnected")}
       </div>
     );
   }
@@ -39,7 +41,7 @@ export function ScanIndicator() {
     return (
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <Activity className="size-4 animate-pulse" aria-hidden />
-        Connexion...
+        {t("scan.connecting")}
       </div>
     );
   }
@@ -49,8 +51,13 @@ export function ScanIndicator() {
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <CheckCircle2 className="size-4 text-emerald-500" aria-hidden />
         {data.processed > 0
-          ? `${data.processed.toLocaleString("fr-FR")} photos indexées`
-          : "Aucune photo indexée"}
+          ? t("scan.indexedCount", {
+              count: data.processed,
+              formatParams: {
+                count: { locale: i18n.language },
+              },
+            })
+          : t("scan.noPhotos")}
       </div>
     );
   }
@@ -60,14 +67,6 @@ export function ScanIndicator() {
       ? Math.round((data.processed / data.total_files) * 100)
       : 0;
 
-  const labels: Record<string, string> = {
-    scanning: "Analyse du système de fichiers",
-    hashing: "Calcul des empreintes",
-    embedding: "Indexation sémantique",
-    faces: "Détection des visages",
-    error: "Erreur",
-  };
-
   return (
     <div className="flex items-center gap-3">
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -75,7 +74,7 @@ export function ScanIndicator() {
           className="size-4 animate-pulse text-primary"
           aria-hidden
         />
-        <span>{labels[data.status] ?? data.status}</span>
+        <span>{t(`scan.status.${data.status}`, data.status)}</span>
         <span className="font-mono text-foreground">{pct}%</span>
       </div>
       <div

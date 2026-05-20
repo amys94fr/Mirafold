@@ -1,10 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FolderPlus, X, RefreshCw, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { FolderPlus, X, RefreshCw, Sparkles, Languages } from "lucide-react";
 import { open as openDialog } from "@tauri-apps/plugin-dialog";
 import { api } from "@/lib/api";
+import { SUPPORTED_LOCALES, type LocaleCode } from "@/i18n";
+import { cn } from "@/lib/utils";
 
 export function SettingsView() {
+  const { t, i18n } = useTranslation();
   const qc = useQueryClient();
+  const currentLocale = (i18n.resolvedLanguage ?? i18n.language) as LocaleCode;
 
   const { data } = useQuery({
     queryKey: ["library-roots"],
@@ -33,14 +38,51 @@ export function SettingsView() {
 
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <h1 className="text-xl font-semibold">Réglages</h1>
+      <h1 className="text-xl font-semibold">{t("settings.title")}</h1>
+
+      <section className="mt-6 surface p-4">
+        <div className="mb-3 flex items-center gap-2">
+          <Languages className="size-4 text-primary" aria-hidden />
+          <h2 className="font-medium">{t("settings.language.title")}</h2>
+        </div>
+        <p className="mb-3 text-xs text-muted-foreground">
+          {t("settings.language.description")}
+        </p>
+        <div
+          role="radiogroup"
+          aria-label={t("settings.language.title")}
+          className="flex flex-wrap gap-2"
+        >
+          {SUPPORTED_LOCALES.map((l) => {
+            const active = currentLocale === l.code;
+            return (
+              <button
+                key={l.code}
+                role="radio"
+                aria-checked={active}
+                type="button"
+                onClick={() => i18n.changeLanguage(l.code)}
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors",
+                  active
+                    ? "border-primary bg-primary/15 text-primary"
+                    : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground",
+                )}
+              >
+                <span className="text-base" aria-hidden>{l.flag}</span>
+                {l.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
       <section className="mt-6 surface p-4">
         <div className="mb-3 flex items-center justify-between">
           <div>
-            <h2 className="font-medium">Dossiers indexés</h2>
+            <h2 className="font-medium">{t("settings.roots.title")}</h2>
             <p className="text-xs text-muted-foreground">
-              Mirafold scanne récursivement ces dossiers. Toute l'indexation reste sur ton PC.
+              {t("settings.roots.description")}
             </p>
           </div>
           <button
@@ -49,7 +91,7 @@ export function SettingsView() {
             className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             <FolderPlus className="size-4" aria-hidden />
-            Ajouter
+            {t("common.addFolder")}
           </button>
         </div>
 
@@ -65,7 +107,7 @@ export function SettingsView() {
                   type="button"
                   onClick={() => removeMut.mutate(root)}
                   className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-destructive"
-                  aria-label={`Retirer ${root}`}
+                  aria-label={t("settings.roots.removeAria", { path: root })}
                 >
                   <X className="size-4" aria-hidden />
                 </button>
@@ -74,15 +116,15 @@ export function SettingsView() {
           </ul>
         ) : (
           <p className="py-3 text-sm text-muted-foreground">
-            Aucun dossier ajouté.
+            {t("settings.roots.empty")}
           </p>
         )}
       </section>
 
       <section className="mt-6 surface p-4">
-        <h2 className="font-medium">Indexation</h2>
+        <h2 className="font-medium">{t("settings.indexing.title")}</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          Toute photo nouvelle ou modifiée déclenche automatiquement empreinte, embedding sémantique et détection des visages. Utilise ces boutons pour relancer manuellement.
+          {t("settings.indexing.description")}
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button
@@ -92,7 +134,7 @@ export function SettingsView() {
             className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-50"
           >
             <Sparkles className="size-4" aria-hidden />
-            Indexer ce qui manque
+            {t("settings.indexing.indexMissing")}
           </button>
           <button
             type="button"
@@ -101,13 +143,21 @@ export function SettingsView() {
             className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-sm hover:bg-muted disabled:opacity-50"
           >
             <RefreshCw className="size-4" aria-hidden />
-            Rescan complet
+            {t("settings.indexing.rescanAll")}
           </button>
         </div>
         <p className="mt-2 text-xs text-muted-foreground">
-          <span className="font-medium text-foreground">Indexer ce qui manque</span> : ne re-traite que les photos sans embedding ou sans visages détectés. Recommandé après l'ajout d'un nouveau modèle.
+          <span className="font-medium text-foreground">
+            {t("settings.indexing.indexMissing")}
+          </span>
+          {" : "}
+          {t("settings.indexing.indexMissingHint")}
           <br />
-          <span className="font-medium text-foreground">Rescan complet</span> : reconstruit tout depuis zéro, plus lent.
+          <span className="font-medium text-foreground">
+            {t("settings.indexing.rescanAll")}
+          </span>
+          {" : "}
+          {t("settings.indexing.rescanAllHint")}
         </p>
       </section>
     </div>
