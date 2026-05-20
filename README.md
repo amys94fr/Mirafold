@@ -36,9 +36,9 @@ Mirafold runs the same kind of AI photo intelligence — CLIP for natural-langua
 
 ## 🎬 Demo
 
-> Add screenshots and a short GIF here. Suggested shots: library with infinite scroll grouped by year, the Faces view with clusters in the sidebar, a semantic search returning relevant photos, the duplicates view with the "keep the best one" button.
+![Mirafold demo](docs/screenshots/demo.gif)
 
-`docs/screenshots/` is the conventional place — drop PNGs there and reference them with relative paths.
+Library with grouping by year/country/camera, faces auto-clustered into people, semantic search returning photos that match a natural-language query. Faces in the demo above are intentionally blurred for privacy; on your own machine the photos are sharp.
 
 ## 🏗️ Architecture
 

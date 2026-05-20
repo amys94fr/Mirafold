@@ -39,6 +39,10 @@ mirafold-data/
 .idea/
 .claude/settings.local.json
 
+# Demo recording artefacts
+docs/screenshots/_frames/
+docs/screenshots/demo-raw.gif
+
 # Env
 .env
 .env.local
