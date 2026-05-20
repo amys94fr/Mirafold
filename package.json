@@ -1,0 +1,16 @@
+{
+  "name": "mirafold",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Application Windows de gestion intelligente de photos : doublons, reconnaissance faciale, recherche sémantique.",
+  "packageManager": "pnpm@10.15.1",
+  "scripts": {
+    "dev": "pnpm --filter @mirafold/desktop dev",
+    "tauri:dev": "pnpm --filter @mirafold/desktop tauri:dev",
+    "tauri:build": "pnpm --filter @mirafold/desktop tauri:build",
+    "ml:install": "python -m pip install -r apps/ml-service/requirements.txt",
+    "ml:dev": "python apps/ml-service/run.py",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint"
+  }
+}

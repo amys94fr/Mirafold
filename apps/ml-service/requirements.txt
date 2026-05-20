@@ -1,0 +1,28 @@
+# Core API
+fastapi==0.136.1
+uvicorn[standard]==0.46.0
+pydantic==2.12.3
+
+# Image processing
+Pillow==12.2.0
+pillow-heif==1.1.0
+imagehash==4.3.2
+numpy==2.3.4
+
+# Database (vector search inside SQLite)
+sqlite-vec==0.1.7a2
+
+# Filesystem
+send2trash==1.8.3
+piexif==1.1.3
+
+# Semantic search
+open-clip-torch==3.4.1
+# CPU-only torch (much smaller than CUDA build); user can swap to CUDA if needed.
+torch==2.10.1 ; platform_system != "Windows"
+# On Windows, install torch separately if CPU-only:
+#   pip install torch==2.10.1 --index-url https://download.pytorch.org/whl/cpu
+
+# Face recognition (OpenCV YuNet + SFace, no native build required)
+opencv-python==4.13.0.92
+scikit-learn==1.7.2  # DBSCAN clustering for face groups

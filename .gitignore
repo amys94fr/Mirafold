@@ -1,0 +1,45 @@
+node_modules/
+dist/
+build/
+target/
+.next/
+*.log
+.DS_Store
+Thumbs.db
+
+# Tauri
+**/src-tauri/target/
+**/src-tauri/gen/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ML models (downloaded at runtime)
+apps/ml-service/models/
+apps/ml-service/.cache/
+
+# User data / DB
+*.db
+*.sqlite
+*.sqlite3
+mirafold-data/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.claude/settings.local.json
+
+# Env
+.env
+.env.local
+.env.*.local
