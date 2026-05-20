@@ -43,11 +43,11 @@ Mirafold runs the same kind of AI photo intelligence — CLIP for natural-langua
 ## 🏗️ Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    Tauri 2 (Rust shell)                      │
-│  ┌────────────────────────┐    ┌──────────────────────────┐  │
-│  │   React 19 + Vite UI   │    │  Python ML sidecar        │  │
-│  │   (WebView, dark mode) │◄──►│  FastAPI on 127.0.0.1:8765│  │
+┌────────────────────────────────────────────────────────────────┐
+│                    Tauri 2 (Rust shell)                        │
+│  ┌────────────────────────┐    ┌────────────────────────────┐  │
+│  │   React 19 + Vite UI   │    │  Python ML sidecar         │  │
+│  │   (WebView, dark mode) │◄──►│  FastAPI on 127.0.0.1:8765 │  │
 │  └────────────────────────┘    │                            │  │
 │                                │  • Scanner (pHash/dHash)   │  │
 │                                │  • OpenCLIP (ViT-B-32)     │  │
@@ -58,7 +58,7 @@ Mirafold runs the same kind of AI photo intelligence — CLIP for natural-langua
 │                                              ▼                 │
 │                            SQLite + sqlite-vec                 │
 │                  (photos, embeddings 512-D + 128-D, clusters)  │
-└──────────────────────────────────────────────────────────────┘
+└────────────────────────────────────────────────────────────────┘
 ```
 
 - **Rust** spawns the Python sidecar at startup, kills it on close (`kill_on_drop`).
