@@ -155,6 +155,24 @@ Issues and PRs welcome. Before submitting a PR:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 
+## 💝 Sponsor
+
+Mirafold is built and maintained on personal time, with no company behind it and no plan to introduce a paid tier or telemetry. If the app saves you hours of scrolling or replaces a paid cloud service, you can help keep it that way.
+
+<p>
+  <a href="https://github.com/sponsors/amys94fr">
+    <img src="https://img.shields.io/badge/Sponsor%20on%20GitHub-EA4AAA?logo=githubsponsors&logoColor=white" alt="Sponsor on GitHub" />
+  </a>
+</p>
+
+Funds go directly toward:
+
+- Time spent shipping new features (map view, image → image search, smart albums, macOS/Linux builds)
+- Code-signing certificates so the Windows installer stops triggering SmartScreen warnings
+- A modest GPU budget for testing the heavy ML pipeline on real-world libraries
+
+Free ways to help that also make a real difference: ⭐ star the repo, open thoughtful issues, share Mirafold with someone who'd benefit from it.
+
 ## ⭐ Star history
 
 If Mirafold saves you a few hours of photo scrolling, hit the star button. It directly influences who finds the project on GitHub.
