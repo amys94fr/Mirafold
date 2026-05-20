@@ -16,15 +16,18 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 BLUR_CSS = """
-/* Vignettes du sidecar = src vers /photos/<id>/thumb. On floute uniquement celles-ci. */
-img[src*='/photos/'][src*='/thumb'] {
+/* Vignettes du sidecar : on floute UNIQUEMENT celles qui contiennent au moins un
+   visage détecté (data-faces > 0). Les photos sans visage (paysages, food, déco,
+   objets) restent nettes. */
+img[src*='/photos/'][src*='/thumb'][data-faces]:not([data-faces='0']) {
   filter: blur(14px) saturate(1.4) contrast(1.1) !important;
 }
-/* Aperçus circulaires de visages dans la sidebar Visages */
+/* Aperçus circulaires dans la sidebar Visages : par définition ce sont des
+   visages, on les floute toujours. */
 aside img[src*='/photos/'] {
   filter: blur(10px) saturate(1.4) !important;
 }
-/* Lightbox full-size */
+/* Lightbox full-size : on ne sait pas si le full a un visage, on garde la marge. */
 img[src*='/photos/'][src*='/full'] {
   filter: blur(20px) saturate(1.4) !important;
 }
@@ -142,7 +145,9 @@ def main() -> None:
         search = page.locator('input[type="text"]')
         search.click()
         search_query = (
-            "family with cake" if args.locale == "en" else "famille avec gâteau"
+            "sunset over the ocean"
+            if args.locale == "en"
+            else "coucher de soleil sur la mer"
         )
         search.type(search_query, delay=60)
         frames.append(shot(page, "10-search-typed", delay=0.3))

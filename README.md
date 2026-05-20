@@ -39,7 +39,7 @@ Mirafold runs the same kind of AI photo intelligence — CLIP for natural-langua
 
 ![Mirafold demo](docs/screenshots/demo.gif)
 
-Library with grouping by year/country/camera, faces auto-clustered into people, semantic search returning photos that match a natural-language query. Faces in the demo above are intentionally blurred for privacy; on your own machine the photos are sharp.
+Library with grouping by year/country/camera, faces auto-clustered into people, semantic search returning photos that match a natural-language query. Photos containing identifiable faces are intentionally blurred in this demo; photos with no faces detected (landscapes, sunsets, objects) are shown sharp so you can see what semantic search actually returns. On your own machine, every photo is sharp.
 
 ## 🏗️ Architecture
 

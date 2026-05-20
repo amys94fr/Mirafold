@@ -44,6 +44,7 @@ export const PhotoCard = memo(function PhotoCard({ photo, badge, onOpen }: Props
           src={api.photoThumb(photo.id)}
           alt=""
           loading="lazy"
+          data-faces={photo.face_count}
           className="size-full object-cover transition-transform group-hover:scale-[1.02]"
         />
       </button>
