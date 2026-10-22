@@ -26,3 +26,6 @@ torch==2.10.1 ; platform_system != "Windows"
 # Face recognition (OpenCV YuNet + SFace, no native build required)
 opencv-python==4.13.0.92
 scikit-learn==1.7.2  # DBSCAN clustering for face groups
+# certifi >= 2026.10.19 : premier bundle sans la racine compromise emSign ECC Root CA - G3
+# (intermediaires eMudhra, octobre 2026). httpx/requests verifient TLS avec certifi.
+certifi>=2026.10.19
